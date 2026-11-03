@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import games from "./games";
 import LocalClock from "./local-clock";
 
@@ -15,6 +18,9 @@ function Icon({ name }: { name: "cloud" | "search" | "bell" | "sun" | "play" | "
 }
 
 export default function Home() {
+  const [selectedGameIndex, setSelectedGameIndex] = useState(0);
+  const selectedGame = games[selectedGameIndex];
+
   return (
     <main className="game-hub">
       <header className="topbar">
@@ -33,28 +39,35 @@ export default function Home() {
 
       <section className="featured-game" id="games" aria-labelledby="featured-title">
         <div className="feature-copy">
-          <h1 id="featured-title">{games[0].name}</h1>
+          <h1 id="featured-title">{selectedGame.name}</h1>
           <div className="game-meta">
-            {/* replace this with actual game metadata */}
-            <span>{games[0].type}</span><span className="connection-speed">12 ms · 4K</span>
+            <span>{selectedGame.type}</span>
+            <span>{selectedGame.description}</span>
           </div>
           <div className="feature-actions">
-            <button className="play-button"><Icon name="play" /><span>Play</span></button>
-            <button className="round-button" aria-label={`Add ${games[0].name} to favorites`}><Icon name="heart" /></button>
+            <button className="play-button"><Icon name="play" /><span>Play {selectedGame.name}</span></button>
+            <button className="round-button" aria-label={`Add ${selectedGame.name} to favorites`}><Icon name="heart" /></button>
             <button className="round-button" aria-label="More options"><Icon name="more" /></button>
           </div>
         </div>
-        {/* <div className="feature-orb" aria-hidden="true" /> */}
+        <div className={`feature-orb ${selectedGame.className}`} aria-hidden="true">
+          <span className={`art-shape art-shape--${selectedGame.shape}`} />
+        </div>
       </section>
 
       <section className="game-shelf" aria-label="Available games">
         <div className="game-list">
           {games.map((game, index) => (
-            <button className={`game-card ${index === 0 ? "is-selected" : ""}`} key={game.name} aria-label={game.name} aria-pressed={index === 0}>
+            <button
+              className={`game-card ${index === selectedGameIndex ? "is-selected" : ""}`}
+              key={game.name}
+              aria-label={`Show ${game.name}`}
+              aria-pressed={index === selectedGameIndex}
+              onClick={() => setSelectedGameIndex(index)}
+            >
               <span className={`game-art ${game.className}`}><span className={`art-shape art-shape--${game.shape}`} /></span>
             </button>
           ))}
-          <button className="game-card add-game" aria-label="Add a game"><Icon name="plus" /></button>
         </div>
       </section>
 
