@@ -1,12 +1,4 @@
-const games = [
-  { name: "Neon Drift", className: "game-art--neon", shape: "orb" },
-  { name: "Blue Horizon", className: "game-art--blue", shape: "moon" },
-  { name: "Redline Rush", className: "game-art--red", shape: "glow" },
-  { name: "Tidal Force", className: "game-art--green", shape: "orb" },
-  { name: "Shadow Realm", className: "game-art--purple", shape: "moon" },
-  { name: "Golden Hour", className: "game-art--gold", shape: "glow" },
-  { name: "Deep Current", className: "game-art--teal", shape: "orb" },
-];
+import games from "./games";
 
 function Icon({ name }: { name: "cloud" | "search" | "bell" | "sun" | "play" | "heart" | "more" | "plus" }) {
   const common = { width: 20, height: 20, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true as const };
@@ -57,7 +49,7 @@ export default function Home() {
         <div className="feature-orb" aria-hidden="true" />
       </section>
 
-      <section className="game-shelf" aria-label="Recently played games">
+      <section className="game-shelf" aria-label="Available games">
         <div className="game-list">
           {games.map((game, index) => (
             <button className={`game-card ${index === 0 ? "is-selected" : ""}`} key={game.name} aria-label={game.name} aria-pressed={index === 0}>
