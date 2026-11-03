@@ -31,8 +31,8 @@ export default function Home() {
         <div className="topbar-actions">
           <button className="icon-button" aria-label="Search"><Icon name="search" /></button>
           <button className="icon-button" aria-label="Notifications"><Icon name="bell" /></button>
-          <button className="icon-button" aria-label="Display settings"><Icon name="sun" /></button>
-          <button className="profile-avatar" aria-label="Profile" />
+          {/* <button className="icon-button" aria-label="Display settings"><Icon name="sun" /></button> */}
+          {/* <button className="profile-avatar" aria-label="Profile" /> */}
           <LocalClock />
         </div>
       </header>
@@ -46,8 +46,6 @@ export default function Home() {
           </div>
           <div className="feature-actions">
             <button className="play-button"><Icon name="play" /><span>Play {selectedGame.name}</span></button>
-            <button className="round-button" aria-label={`Add ${selectedGame.name} to favorites`}><Icon name="heart" /></button>
-            <button className="round-button" aria-label="More options"><Icon name="more" /></button>
           </div>
         </div>
         <div className={`feature-orb ${selectedGame.className}`} aria-hidden="true">
@@ -71,10 +69,6 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="statusbar">
-        <div className="controller-hints"><span><b>×</b> Select</span><span><b>○</b> Back</span><span><b>△</b> Options</span></div>
-        <div className="server-status"><span className="status-dot" />Connected to Mumbai server</div>
-      </footer>
     </main>
   );
 }
