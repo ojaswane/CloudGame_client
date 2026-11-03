@@ -37,7 +37,8 @@ export default function Home() {
         <div className="feature-copy">
           <h1 id="featured-title">{games[0].name}</h1>
           <div className="game-meta">
-            <span></span><span>1–2 players</span><span>Cloud save synced</span><span className="connection-speed">12 ms · 4K</span>
+            {/* replace this with actual game metadata */}
+            <span>{games[0].type}</span><span className="connection-speed">12 ms · 4K</span>
           </div>
           <div className="feature-actions">
             <button className="play-button"><Icon name="play" /><span>Play</span></button>
