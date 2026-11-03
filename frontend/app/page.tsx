@@ -35,14 +35,13 @@ export default function Home() {
 
       <section className="featured-game" id="games" aria-labelledby="featured-title">
         <div className="feature-copy">
-          <p className="eyebrow">Continue playing</p>
-          <h1 id="featured-title">Neon Drift</h1>
+          <h1 id="featured-title">{games[0].name}</h1>
           <div className="game-meta">
-            <span>Racing</span><span>1–2 players</span><span>Cloud save synced</span><span className="connection-speed">12 ms · 4K</span>
+            <span></span><span>1–2 players</span><span>Cloud save synced</span><span className="connection-speed">12 ms · 4K</span>
           </div>
           <div className="feature-actions">
             <button className="play-button"><Icon name="play" /><span>Play</span></button>
-            <button className="round-button" aria-label="Add Neon Drift to favorites"><Icon name="heart" /></button>
+            <button className="round-button" aria-label={`Add ${games[0].name} to favorites`}><Icon name="heart" /></button>
             <button className="round-button" aria-label="More options"><Icon name="more" /></button>
           </div>
         </div>
