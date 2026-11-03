@@ -3,6 +3,7 @@
 import { useState } from "react";
 import games from "./games";
 import LocalClock from "./local-clock";
+import HoldButton from "../components/HoldButton";
 
 function Icon({ name }: { name: "cloud" | "search" | "bell" | "sun" | "play" | "heart" | "more" | "plus" }) {
   const common = { width: 20, height: 20, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true as const };
@@ -45,7 +46,9 @@ export default function Home() {
             <span>{selectedGame.description}</span>
           </div>
           <div className="feature-actions">
-            <button className="play-button"><Icon name="play" /><span>Play {selectedGame.name}</span></button>
+            <HoldButton holdTime={1000} doneLabel={`Launching ${selectedGame.name}...`}>
+              {`Hold to play ${selectedGame.name}`}
+            </HoldButton>
           </div>
         </div>
         <div className={`feature-orb ${selectedGame.className}`} aria-hidden="true">
