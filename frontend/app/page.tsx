@@ -1,69 +1,77 @@
-import Image from "next/image";
+const games = [
+  { name: "Neon Drift", className: "game-art--neon", shape: "orb" },
+  { name: "Blue Horizon", className: "game-art--blue", shape: "moon" },
+  { name: "Redline Rush", className: "game-art--red", shape: "glow" },
+  { name: "Tidal Force", className: "game-art--green", shape: "orb" },
+  { name: "Shadow Realm", className: "game-art--purple", shape: "moon" },
+  { name: "Golden Hour", className: "game-art--gold", shape: "glow" },
+  { name: "Deep Current", className: "game-art--teal", shape: "orb" },
+];
+
+function Icon({ name }: { name: "cloud" | "search" | "bell" | "sun" | "play" | "heart" | "more" | "plus" }) {
+  const common = { width: 20, height: 20, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true as const };
+
+  if (name === "cloud") return <svg {...common} fill="currentColor" stroke="none"><path d="M19 18H6a4 4 0 0 1-.5-7.97A6.5 6.5 0 0 1 18 8.5a4.75 4.75 0 0 1 1 9.5Z" /></svg>;
+  if (name === "search") return <svg {...common}><circle cx="10.8" cy="10.8" r="6.3" /><path d="m16 16 4 4" /></svg>;
+  if (name === "bell") return <svg {...common}><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9ZM10 21h4" /></svg>;
+  if (name === "sun") return <svg {...common}><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" /></svg>;
+  if (name === "play") return <svg {...common} fill="currentColor" stroke="none"><path d="m8 5 11 7-11 7V5Z" /></svg>;
+  if (name === "heart") return <svg {...common}><path d="M20.8 8.8c0 4.2-8.8 10-8.8 10s-8.8-5.8-8.8-10a4.7 4.7 0 0 1 8.8-2.3 4.7 4.7 0 0 1 8.8 2.3Z" /></svg>;
+  if (name === "more") return <svg {...common}><circle cx="5" cy="12" r="1" fill="currentColor" /><circle cx="12" cy="12" r="1" fill="currentColor" /><circle cx="19" cy="12" r="1" fill="currentColor" /></svg>;
+  return <svg {...common}><path d="M12 5v14M5 12h14" /></svg>;
+}
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="game-hub">
+      <header className="topbar">
+        <a className="brand-mark" href="#home" aria-label="Cloud Gaming home"><Icon name="cloud" /></a>
+        <nav className="main-nav" aria-label="Main navigation">
+          <a className="nav-link is-active" href="#games">Games</a>
+          <a className="nav-link" href="#library">Library</a>
+          <a className="nav-link" href="#store">Store</a>
+          <a className="nav-link" href="#friends">Friends</a>
+        </nav>
+        <div className="topbar-actions">
+          <button className="icon-button" aria-label="Search"><Icon name="search" /></button>
+          <button className="icon-button" aria-label="Notifications"><Icon name="bell" /></button>
+          <button className="icon-button" aria-label="Display settings"><Icon name="sun" /></button>
+          <button className="profile-avatar" aria-label="Profile" />
+          <span className="clock">9:41</span>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </header>
+
+      <section className="featured-game" id="games" aria-labelledby="featured-title">
+        <div className="feature-copy">
+          <p className="eyebrow">Continue playing</p>
+          <h1 id="featured-title">Neon Drift</h1>
+          <div className="game-meta">
+            <span>Racing</span><span>1–2 players</span><span>Cloud save synced</span><span className="connection-speed">12 ms · 4K</span>
+          </div>
+          <div className="feature-actions">
+            <button className="play-button"><Icon name="play" /><span>Play</span></button>
+            <button className="round-button" aria-label="Add Neon Drift to favorites"><Icon name="heart" /></button>
+            <button className="round-button" aria-label="More options"><Icon name="more" /></button>
+          </div>
         </div>
-      </main>
-    </div>
+        <div className="feature-orb" aria-hidden="true" />
+      </section>
+
+      <section className="game-shelf" aria-label="Recently played games">
+        <div className="game-list">
+          {games.map((game, index) => (
+            <button className={`game-card ${index === 0 ? "is-selected" : ""}`} key={game.name} aria-label={game.name} aria-pressed={index === 0}>
+              <span className={`game-art ${game.className}`}><span className={`art-shape art-shape--${game.shape}`} /></span>
+            </button>
+          ))}
+          <button className="game-card add-game" aria-label="Add a game"><Icon name="plus" /></button>
+        </div>
+      </section>
+
+      <footer className="statusbar">
+        <div className="controller-hints"><span><b>×</b> Select</span><span><b>○</b> Back</span><span><b>△</b> Options</span></div>
+        <div className="server-status"><span className="status-dot" />Connected to Mumbai server</div>
+      </footer>
+    </main>
   );
 }
