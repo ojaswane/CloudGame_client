@@ -1,4 +1,5 @@
 import games from "./games";
+import LocalClock from "./local-clock";
 
 function Icon({ name }: { name: "cloud" | "search" | "bell" | "sun" | "play" | "heart" | "more" | "plus" }) {
   const common = { width: 20, height: 20, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true as const };
@@ -20,16 +21,13 @@ export default function Home() {
         <a className="brand-mark" href="#home" aria-label="Cloud Gaming home"><Icon name="cloud" /></a>
         <nav className="main-nav" aria-label="Main navigation">
           <a className="nav-link is-active" href="#games">Games</a>
-          <a className="nav-link" href="#library">Library</a>
-          <a className="nav-link" href="#store">Store</a>
-          <a className="nav-link" href="#friends">Friends</a>
         </nav>
         <div className="topbar-actions">
           <button className="icon-button" aria-label="Search"><Icon name="search" /></button>
           <button className="icon-button" aria-label="Notifications"><Icon name="bell" /></button>
           <button className="icon-button" aria-label="Display settings"><Icon name="sun" /></button>
           <button className="profile-avatar" aria-label="Profile" />
-          <span className="clock">9:41</span>
+          <LocalClock />
         </div>
       </header>
 
@@ -46,7 +44,7 @@ export default function Home() {
             <button className="round-button" aria-label="More options"><Icon name="more" /></button>
           </div>
         </div>
-        <div className="feature-orb" aria-hidden="true" />
+        {/* <div className="feature-orb" aria-hidden="true" /> */}
       </section>
 
       <section className="game-shelf" aria-label="Available games">
