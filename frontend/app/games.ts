@@ -8,7 +8,6 @@ const games = [
     {
         name: "RDR 2",
         className: "game-art--neon",
-        shape: "orb",
         icon: rdr2_icon,
         background: rdr2_background,
         type: "Adventure",
@@ -17,7 +16,6 @@ const games = [
     {
         name: "Marvel's Spider-Man",
         className: "game-art--blue",
-        shape: "moon",
         icon: marvel_spiderman_icon,
         background: marvel_spiderman_background,
         type: "Action",
@@ -26,7 +24,6 @@ const games = [
     {
         name: "GTA V",
         className: "game-art--red",
-        shape: "glow",
         icon: gta_v_icon,
         type: "Action",
         background: gta5_background,

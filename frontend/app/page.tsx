@@ -25,6 +25,14 @@ export default function Home() {
 
   return (
     <main className="game-hub">
+      <Image
+        className="game-background"
+        src={selectedGame.background}
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+      />
       <header className="topbar">
         <a className="brand-mark" href="#home" aria-label="Cloud Gaming home"><Icon name="cloud" /></a>
         <nav className="main-nav" aria-label="Main navigation">
@@ -51,9 +59,6 @@ export default function Home() {
               {`Hold to play ${selectedGame.name}`}
             </HoldButton>
           </div>
-        </div>
-        <div className={`feature-orb ${selectedGame.className}`} aria-hidden="true">
-          <span className={`art-shape art-shape--${selectedGame.shape}`} />
         </div>
       </section>
 
