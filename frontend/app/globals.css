@@ -190,6 +190,7 @@ a { text-decoration: none; }
 .game-art--purple { background: linear-gradient(145deg, #28233f, #52429d 58%, #a984f2); }
 .game-art--gold { background: linear-gradient(145deg, #503600, #b87608 58%, #ffd45c); }
 .game-art--teal { background: linear-gradient(145deg, #10424b, #16818a 60%, #80d7ca); }
+.game-icon { object-fit: cover; }
 .art-shape { display: block; width: 40%; aspect-ratio: 1; border-radius: 50%; background: rgb(255 255 255 / 28%); }
 .game-art--neon .art-shape { width: 44%; background: radial-gradient(circle at 40% 36%, #fff0c4, #ffd185 72%); }
 .art-shape--moon { position: absolute; top: -13%; right: -5%; width: 48%; background: rgb(218 230 255 / 30%); }

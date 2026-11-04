@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import games from "./games";
 import LocalClock from "./local-clock";
 import HoldButton from "../components/HoldButton";
@@ -66,7 +67,9 @@ export default function Home() {
               aria-pressed={index === selectedGameIndex}
               onClick={() => setSelectedGameIndex(index)}
             >
-              <span className={`game-art ${game.className}`}><span className={`art-shape art-shape--${game.shape}`} /></span>
+              <span className={`game-art ${game.className}`}>
+                <Image className="game-icon" src={game.icon} alt="" fill sizes="(max-width: 760px) 132px, 180px" />
+              </span>
             </button>
           ))}
         </div>
