@@ -25,14 +25,17 @@ export default function Home() {
 
   return (
     <main className="game-hub">
-      <Image
-        className="game-background"
-        src={selectedGame.background}
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-      />
+      {games.map((game, index) => (
+        <Image
+          className={`game-background ${index === selectedGameIndex ? "is-active" : ""}`}
+          key={game.name}
+          src={game.background}
+          alt=""
+          fill
+          priority={index === 0}
+          sizes="100vw"
+        />
+      ))}
       <header className="topbar">
         <a className="brand-mark" href="#home" aria-label="Cloud Gaming home"><Icon name="cloud" /></a>
         <nav className="main-nav" aria-label="Main navigation">
@@ -48,7 +51,7 @@ export default function Home() {
       </header>
 
       <section className="featured-game" id="games" aria-labelledby="featured-title">
-        <div className="feature-copy">
+        <div className="feature-copy" key={selectedGame.name}>
           <h1 id="featured-title">{selectedGame.name}</h1>
           <div className="game-meta">
             <span>{selectedGame.type}</span>
