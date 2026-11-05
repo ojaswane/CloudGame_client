@@ -216,15 +216,19 @@ a { text-decoration: none; }
 
 .player-page {
   position: relative;
-  min-height: 100vh;
-  min-height: 100svh;
+  display: flex;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  flex-direction: column;
   overflow: hidden;
-  padding: 0 clamp(20px, 5vw, 76px) 48px;
+  padding: 0 clamp(20px, 5vw, 76px) clamp(12px, 2vh, 28px);
   background: radial-gradient(ellipse at 50% 45%, #171a28 0%, #090a10 48%, #05060a 100%);
   color: #fff;
 }
 .player-topbar {
   display: flex;
+  flex: 0 0 76px;
   height: 76px;
   align-items: center;
   justify-content: space-between;
@@ -234,7 +238,7 @@ a { text-decoration: none; }
 .player-back:hover { color: #fff; }
 .player-back svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
 .player-brand { color: #949aab; font-size: 12px; font-weight: 700; letter-spacing: .2em; }
-.player-content { width: min(100%, 1440px); margin: clamp(32px, 5vw, 66px) auto 0; }
+.player-content { display: flex; width: min(100%, 1440px); min-height: 0; flex: 1 1 auto; flex-direction: column; margin: clamp(16px, 4vh, 44px) auto 0; }
 .player-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 22px; }
 .player-eyebrow { margin: 0 0 8px; color: #a4acc0; font-size: 12px; font-weight: 700; letter-spacing: .16em; }
 .player-heading h1 { margin: 0; font-size: clamp(32px, 5vw, 58px); font-weight: 400; letter-spacing: -.045em; line-height: 1.05; }
@@ -245,7 +249,7 @@ a { text-decoration: none; }
 .player-status--connecting .player-status-dot,
 .player-status--buffering .player-status-dot { animation: player-status-pulse 1.3s ease-in-out infinite; }
 @keyframes player-status-pulse { 50% { opacity: .35; } }
-.stream-frame { position: relative; display: grid; min-height: 280px; aspect-ratio: 16 / 9; overflow: hidden; place-items: center; border: 1px solid rgb(255 255 255 / 12%); border-radius: 18px; background: #030408; box-shadow: 0 24px 80px rgb(0 0 0 / 42%); }
+.stream-frame { position: relative; display: grid; min-height: 0; flex: 1 1 0; overflow: hidden; place-items: center; border: 1px solid rgb(255 255 255 / 12%); border-radius: 18px; background: #030408; box-shadow: 0 24px 80px rgb(0 0 0 / 42%); }
 .stream-poster { object-fit: cover; opacity: .3; }
 .stream-frame::after { position: absolute; z-index: 0; inset: 0; background: linear-gradient(180deg, rgb(5 6 10 / 8%), rgb(5 6 10 / 74%)); content: ""; pointer-events: none; }
 .stream-video { position: absolute; z-index: 1; width: 100%; height: 100%; background: #030408; object-fit: contain; }
@@ -259,7 +263,7 @@ a { text-decoration: none; }
 .stream-placeholder h2 { margin: 0 0 9px; font-size: clamp(22px, 3vw, 30px); font-weight: 500; letter-spacing: -.03em; }
 .stream-placeholder p { margin: 0 0 17px; color: #c0c5d2; font-size: 14px; line-height: 1.6; }
 .stream-placeholder code { max-width: 100%; overflow-wrap: anywhere; padding: 9px 12px; border: 1px solid rgb(255 255 255 / 10%); border-radius: 8px; background: rgb(0 0 0 / 35%); color: #d7c8ff; font-size: 12px; }
-.player-footer { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-top: 20px; color: #c6cada; font-size: 14px; }
+.player-footer { display: flex; flex: 0 0 auto; align-items: center; justify-content: space-between; gap: 20px; padding-top: 14px; color: #c6cada; font-size: 14px; }
 .player-footer p { margin: 0; }
 .player-footer .player-hint { color: #888fa1; text-align: right; }
 .player-loading { color: #c4c9d6; }
@@ -294,12 +298,12 @@ a { text-decoration: none; }
 }
 
 @media (max-width: 440px) {
-  .main-nav { gap: 13px; }
-  .brand-mark { width: 30px; height: 30px; }
-  .feature-actions { margin-top: 22px; }
-  .play-button { min-width: 128px; height: 54px; }
-  .round-button { width: 54px; height: 54px; }
-  .statusbar { flex-direction: column; }
+  .player-page { padding: 0 18px clamp(10px, 2vh, 18px); }
+  .player-topbar { flex-basis: 64px; height: 64px; }
+  .player-content { margin-top: clamp(10px, 2.5vh, 24px); }
+  .player-heading { align-items: flex-start; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+  .stream-frame { border-radius: 14px; }
+  .player-footer { align-items: flex-start; flex-direction: column; gap: 6px; padding-top: 10px; font-size: 13px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
