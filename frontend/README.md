@@ -18,6 +18,18 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
+## Game stream player
+
+The game library's hold-to-play action opens a player at `/{gameId}/game`. To connect a browser-playable video stream, add the matching URL to `.env.local`:
+
+```env
+NEXT_PUBLIC_RDR2_STREAM_URL=https://your-stream-host/rdr2.mp4
+NEXT_PUBLIC_SPIDERMAN_STREAM_URL=https://your-stream-host/spiderman.mp4
+NEXT_PUBLIC_GTA5_STREAM_URL=https://your-stream-host/gta5.mp4
+```
+
+Only set the variables for games with an available stream. The player uses the browser's native video element and controls, so the stream server must allow browser access and provide a media format supported by the browser. Restart the dev server after changing `.env.local`.
+
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Learn More

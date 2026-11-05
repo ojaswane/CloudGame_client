@@ -6,29 +6,37 @@ import rdr2_background from "../public/RDR2_background.jpg"
 import marvel_spiderman_background from "../public/spiderman_background.avif"
 const games = [
     {
+        id: "rdr2",
         name: "RDR 2",
         className: "game-art--neon",
         icon: rdr2_icon,
         background: rdr2_background,
+        streamUrl: process.env.NEXT_PUBLIC_RDR2_STREAM_URL,
         type: "Adventure",
         description: "Explore a vast frontier in an epic western adventure.",
     },
     {
+        id: "spiderman",
         name: "Marvel's Spider-Man",
         className: "game-art--blue",
         icon: marvel_spiderman_icon,
         background: marvel_spiderman_background,
+        streamUrl: process.env.NEXT_PUBLIC_SPIDERMAN_STREAM_URL,
         type: "Action",
         description: "Swing through the city and take on its toughest foes.",
     },
     {
+        id: "gta5",
         name: "GTA V",
         className: "game-art--red",
         icon: gta_v_icon,
         type: "Action",
         background: gta5_background,
+        streamUrl: process.env.NEXT_PUBLIC_GTA5_STREAM_URL,
         description: "Dive into a sprawling crime story across Los Santos.",
     },
 ];
+
+export type Game = (typeof games)[number];
 
 export default games;

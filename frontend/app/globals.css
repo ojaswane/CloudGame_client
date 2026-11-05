@@ -214,6 +214,58 @@ a { text-decoration: none; }
 .server-status { display: flex; align-items: center; gap: 9px; }
 .status-dot { width: 9px; height: 9px; border-radius: 50%; background: #54e3a7; }
 
+.player-page {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+  padding: 0 clamp(20px, 5vw, 76px) 48px;
+  background: radial-gradient(ellipse at 50% 45%, #171a28 0%, #090a10 48%, #05060a 100%);
+  color: #fff;
+}
+.player-topbar {
+  display: flex;
+  height: 76px;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(255 255 255 / 9%);
+}
+.player-back { display: inline-flex; align-items: center; gap: 8px; color: #c4c9d6; font-size: 14px; transition: color 180ms ease; }
+.player-back:hover { color: #fff; }
+.player-back svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
+.player-brand { color: #949aab; font-size: 12px; font-weight: 700; letter-spacing: .2em; }
+.player-content { width: min(100%, 1440px); margin: clamp(32px, 5vw, 66px) auto 0; }
+.player-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 22px; }
+.player-eyebrow { margin: 0 0 8px; color: #a4acc0; font-size: 12px; font-weight: 700; letter-spacing: .16em; }
+.player-heading h1 { margin: 0; font-size: clamp(32px, 5vw, 58px); font-weight: 400; letter-spacing: -.045em; line-height: 1.05; }
+.player-status { display: inline-flex; flex: none; align-items: center; gap: 9px; padding: 9px 13px; border: 1px solid rgb(255 255 255 / 12%); border-radius: 999px; background: rgb(255 255 255 / 5%); color: #c4c9d6; font-size: 12px; }
+.player-status-dot { width: 8px; height: 8px; border-radius: 50%; background: #f0b858; box-shadow: 0 0 12px rgb(240 184 88 / 45%); }
+.player-status--ready .player-status-dot { background: #5de0a5; box-shadow: 0 0 12px rgb(93 224 165 / 45%); }
+.player-status--error .player-status-dot { background: #ff6b73; box-shadow: 0 0 12px rgb(255 107 115 / 45%); }
+.player-status--connecting .player-status-dot,
+.player-status--buffering .player-status-dot { animation: player-status-pulse 1.3s ease-in-out infinite; }
+@keyframes player-status-pulse { 50% { opacity: .35; } }
+.stream-frame { position: relative; display: grid; min-height: 280px; aspect-ratio: 16 / 9; overflow: hidden; place-items: center; border: 1px solid rgb(255 255 255 / 12%); border-radius: 18px; background: #030408; box-shadow: 0 24px 80px rgb(0 0 0 / 42%); }
+.stream-poster { object-fit: cover; opacity: .3; }
+.stream-frame::after { position: absolute; z-index: 0; inset: 0; background: linear-gradient(180deg, rgb(5 6 10 / 8%), rgb(5 6 10 / 74%)); content: ""; pointer-events: none; }
+.stream-video { position: absolute; z-index: 1; width: 100%; height: 100%; background: #030408; object-fit: contain; }
+.stream-message { position: absolute; z-index: 2; display: flex; max-width: min(440px, calc(100% - 32px)); flex-direction: column; align-items: center; gap: 8px; padding: 18px 22px; border: 1px solid rgb(255 255 255 / 12%); border-radius: 12px; background: rgb(5 6 10 / 78%); color: #fff; text-align: center; backdrop-filter: blur(12px); pointer-events: none; }
+.stream-message span { color: #c0c5d2; font-size: 13px; line-height: 1.5; }
+.stream-message--connecting strong::before,
+.stream-message--buffering strong::before { display: inline-block; width: 8px; height: 8px; margin-right: 9px; border-radius: 50%; background: #eab75d; content: ""; animation: player-status-pulse 1.3s ease-in-out infinite; }
+.stream-message--error { border-color: rgb(255 107 115 / 35%); }
+.stream-placeholder { position: relative; z-index: 1; display: flex; max-width: 460px; flex-direction: column; align-items: center; padding: 24px; text-align: center; }
+.stream-game-icon { margin-bottom: 18px; border: 1px solid rgb(255 255 255 / 22%); border-radius: 18px; object-fit: cover; box-shadow: 0 12px 40px rgb(0 0 0 / 32%); }
+.stream-placeholder h2 { margin: 0 0 9px; font-size: clamp(22px, 3vw, 30px); font-weight: 500; letter-spacing: -.03em; }
+.stream-placeholder p { margin: 0 0 17px; color: #c0c5d2; font-size: 14px; line-height: 1.6; }
+.stream-placeholder code { max-width: 100%; overflow-wrap: anywhere; padding: 9px 12px; border: 1px solid rgb(255 255 255 / 10%); border-radius: 8px; background: rgb(0 0 0 / 35%); color: #d7c8ff; font-size: 12px; }
+.player-footer { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-top: 20px; color: #c6cada; font-size: 14px; }
+.player-footer p { margin: 0; }
+.player-footer .player-hint { color: #888fa1; text-align: right; }
+.player-loading { color: #c4c9d6; }
+.player-loading-frame { width: 100%; aspect-ratio: 16 / 9; margin-top: 16px; border: 1px solid rgb(255 255 255 / 10%); border-radius: 18px; background: linear-gradient(110deg, #10121a 8%, #1a1d29 18%, #10121a 33%); background-size: 200% 100%; animation: player-loading-shimmer 1.4s linear infinite; }
+@keyframes player-loading-shimmer { to { background-position-x: -200%; } }
+
 @media (min-width: 1500px) {
   .featured-game { min-height: 530px; }
   .game-shelf { margin-bottom: 40px; }
@@ -252,6 +304,16 @@ a { text-decoration: none; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+@media (max-width: 760px) {
+  .player-page { padding: 0 18px 32px; }
+  .player-topbar { height: 64px; }
+  .player-content { margin-top: 32px; }
+  .player-heading { align-items: flex-start; flex-direction: column; gap: 15px; }
+  .stream-frame { min-height: 260px; aspect-ratio: 4 / 3; border-radius: 14px; }
+  .player-footer { align-items: flex-start; flex-direction: column; gap: 9px; font-size: 13px; }
+  .player-footer .player-hint { text-align: left; }
 }
 
 .dark {

@@ -9,6 +9,32 @@ const HIT_PAD = 10;
 const LINEAR = t => t;
 const EASE_OUT = t => 1 - Math.pow(1 - t, 3);
 
+/**
+ * @param {{
+ *   children?: import('react').ReactNode,
+ *   doneLabel?: string,
+ *   icon?: import('react').ReactNode,
+ *   doneIcon?: import('react').ReactNode,
+ *   backgroundColor?: string,
+ *   fillColor?: string,
+ *   textColor?: string,
+ *   fillTextColor?: string,
+ *   size?: 'sm' | 'md' | 'lg',
+ *   radius?: number,
+ *   fillDirection?: 'right' | 'up',
+ *   holdTime?: number,
+ *   releaseTime?: number,
+ *   pressScale?: number,
+ *   wave?: boolean,
+ *   waveAmplitude?: number,
+ *   glow?: boolean,
+ *   resetAfter?: number,
+ *   disabled?: boolean,
+ *   onHold?: () => void,
+ *   onTap?: () => void,
+ *   className?: string
+ * }} props
+ */
 export default function HoldButton({
   children = 'Hold to Connect Server',
   doneLabel = 'Connecting...',

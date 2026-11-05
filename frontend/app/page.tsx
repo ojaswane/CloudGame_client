@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import games from "./games";
 import LocalClock from "./local-clock";
 import HoldButton from "../components/HoldButton";
@@ -20,6 +21,7 @@ function Icon({ name }: { name: "cloud" | "search" | "bell" | "sun" | "play" | "
 }
 
 export default function Home() {
+  const router = useRouter();
   const [selectedGameIndex, setSelectedGameIndex] = useState(0);
   const selectedGame = games[selectedGameIndex];
 
@@ -56,7 +58,11 @@ export default function Home() {
             <span>{selectedGame.description}</span>
           </div>
           <div className="feature-actions">
-            <HoldButton holdTime={1000} doneLabel={`Launching ${selectedGame.name}...`}>
+            <HoldButton
+              holdTime={1000}
+              doneLabel={`Opening ${selectedGame.name}...`}
+              onHold={() => router.push(`/${selectedGame.id}/game`)}
+            >
               {`Hold to play ${selectedGame.name}`}
             </HoldButton>
           </div>
