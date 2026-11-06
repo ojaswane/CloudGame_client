@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HandleSde, { type GameConnectionStatus } from "../../../Handle_sde";
 import type { Game } from "../../games";
 
@@ -15,9 +15,61 @@ export default function GamePlayer({
   game: Game;
   controlWsUrl?: string;
 }) {
+  const [sessionId, setSessionId] = useState<string | null>(null);
   const [status, setStatus] = useState<PlayerStatus>(
     controlWsUrl ? "connecting" : game.streamUrl ? "connecting" : "not-configured",
   );
+
+  useEffect(() => {
+    if (!controlWsUrl) return;
+
+    let cancelled = false;
+
+    const createSession = async () => {
+      try {
+        const storageKey = `cloudplay:idempotency:${game.id}`;
+        let idempotencyKey = window.sessionStorage.getItem(storageKey);
+
+        if (!idempotencyKey) {
+          idempotencyKey = window.crypto.randomUUID();
+          window.sessionStorage.setItem(storageKey, idempotencyKey);
+        }
+
+        const response = await fetch("/api/sessions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Idempotency-Key": idempotencyKey,
+          },
+          body: JSON.stringify({ game_name: game.name }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Control panel session request failed (${response.status})`);
+        }
+
+        const session: unknown = await response.json();
+        if (
+          typeof session !== "object" ||
+          session === null ||
+          !("id" in session) ||
+          typeof session.id !== "string"
+        ) {
+          throw new Error("Control panel returned a session without an ID");
+        }
+
+        if (!cancelled) setSessionId(session.id);
+      } catch (error) {
+        console.error("Could not create game session:", error);
+        if (!cancelled) setStatus("error");
+      }
+    };
+
+    void createSession();
+    return () => {
+      cancelled = true;
+    };
+  }, [controlWsUrl, game.id, game.name]);
 
   const statusLabel = {
     "not-configured": "Stream not connected",
@@ -62,9 +114,9 @@ export default function GamePlayer({
             priority
             sizes="(max-width: 900px) 100vw, 1440px"
           />
-          {controlWsUrl ? (
+          {controlWsUrl && sessionId ? (
             <HandleSde
-              sessionId={game.sessionId}
+              sessionId={sessionId}
               controlWsUrl={controlWsUrl}
               onStatusChange={setStatus}
             />
@@ -118,7 +170,9 @@ export default function GamePlayer({
           <p>{game.description}</p>
           <p className="player-hint">
             {controlWsUrl
-              ? `SDP session: ${game.sessionId}`
+              ? sessionId
+                ? `SDP session: ${sessionId}`
+                : "Requesting a game session from the control panel."
               : game.streamUrl
                 ? "Use the video controls to play, pause, adjust volume, or go fullscreen."
                 : "This player is ready for a browser-compatible video stream URL."}

@@ -7,8 +7,8 @@ import marvel_spiderman_background from "../public/spiderman_background.avif"
 const games = [
     {
         id: "rdr2",
-        sessionId: process.env.NEXT_PUBLIC_RDR2_SESSION_ID || "rdr2",
         name: "RDR 2",
+        className: "game-art--neon",
         icon: rdr2_icon,
         background: rdr2_background,
         streamUrl: process.env.NEXT_PUBLIC_RDR2_STREAM_URL,
@@ -17,8 +17,8 @@ const games = [
     },
     {
         id: "spiderman",
-        sessionId: process.env.NEXT_PUBLIC_SPIDERMAN_SESSION_ID || "spiderman",
         name: "Marvel's Spider-Man",
+        className: "game-art--blue",
         icon: marvel_spiderman_icon,
         background: marvel_spiderman_background,
         streamUrl: process.env.NEXT_PUBLIC_SPIDERMAN_STREAM_URL,
@@ -27,8 +27,8 @@ const games = [
     },
     {
         id: "gta5",
-        sessionId: process.env.NEXT_PUBLIC_GTA5_SESSION_ID || "gta5",
         name: "GTA V",
+        className: "game-art--red",
         icon: gta_v_icon,
         type: "Action",
         background: gta5_background,
