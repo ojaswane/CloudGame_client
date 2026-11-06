@@ -3,21 +3,30 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import HandleSde, { type GameConnectionStatus } from "../../../Handle_sde";
 import type { Game } from "../../games";
 
-type PlayerStatus = "not-configured" | "connecting" | "ready" | "buffering" | "error";
+type PlayerStatus = "not-configured" | GameConnectionStatus;
 
-export default function GamePlayer({ game }: { game: Game }) {
+export default function GamePlayer({
+  game,
+  controlWsUrl,
+}: {
+  game: Game;
+  controlWsUrl?: string;
+}) {
   const [status, setStatus] = useState<PlayerStatus>(
-    game.streamUrl ? "connecting" : "not-configured",
+    controlWsUrl ? "connecting" : game.streamUrl ? "connecting" : "not-configured",
   );
 
   const statusLabel = {
     "not-configured": "Stream not connected",
-    connecting: "Connecting to stream",
+    connecting: controlWsUrl ? "Connecting to control panel" : "Connecting to stream",
+    negotiating: "Negotiating SDP",
+    receiving: "Connecting to game video",
     ready: "Ready to play",
     buffering: "Buffering stream",
-    error: "Stream unavailable",
+    error: controlWsUrl ? "Control-panel connection failed" : "Stream unavailable",
   }[status];
 
   return (
@@ -53,7 +62,13 @@ export default function GamePlayer({ game }: { game: Game }) {
             priority
             sizes="(max-width: 900px) 100vw, 1440px"
           />
-          {game.streamUrl ? (
+          {controlWsUrl ? (
+            <HandleSde
+              sessionId={game.sessionId}
+              controlWsUrl={controlWsUrl}
+              onStatusChange={setStatus}
+            />
+          ) : game.streamUrl ? (
             <video
               className="stream-video"
               src={game.streamUrl}
@@ -73,21 +88,28 @@ export default function GamePlayer({ game }: { game: Game }) {
               <Image className="stream-game-icon" src={game.icon} alt="" width={76} height={76} />
               <h2>Ready when you are</h2>
               <p>
-                Add this game&apos;s stream URL to your local environment to connect your server.
+                Configure a control-panel WebSocket URL or add this game&apos;s stream URL to connect your server.
               </p>
-              <code>NEXT_PUBLIC_{game.id.toUpperCase()}_STREAM_URL</code>
+              <code>NEXT_PUBLIC_CONTROL_WS_URL</code>
             </div>
           )}
-          {game.streamUrl && status !== "ready" && (
-            <div className={`stream-message stream-message--${status}`} role={status === "error" ? "alert" : "status"}>
-              {status === "error" ? (
-                <>
-                  <strong>Couldn&apos;t load this stream</strong>
-                  <span>Check the stream URL, server access, and supported video format.</span>
-                </>
-              ) : (
-                <strong>{status === "buffering" ? "Buffering stream..." : "Connecting to your game..."}</strong>
-              )}
+          {(controlWsUrl || game.streamUrl) && status !== "ready" && status !== "error" && (
+            <div className={`stream-message stream-message--${status}`} role="status">
+              <strong>{statusLabel}...</strong>
+              <div
+                className="stream-progress"
+                role="progressbar"
+                aria-label={statusLabel}
+                aria-valuetext="Connection in progress"
+              >
+                <span />
+              </div>
+            </div>
+          )}
+          {status === "error" && (controlWsUrl || game.streamUrl) && (
+            <div className="stream-message stream-message--error" role="alert">
+              <strong>{controlWsUrl ? "Couldn’t connect to the control panel" : "Couldn’t load this stream"}</strong>
+              <span>{controlWsUrl ? "Check the WebSocket URL, session ID, and that the game agent is online." : "Check the stream URL, server access, and supported video format."}</span>
             </div>
           )}
         </section>
@@ -95,9 +117,11 @@ export default function GamePlayer({ game }: { game: Game }) {
         <footer className="player-footer">
           <p>{game.description}</p>
           <p className="player-hint">
-            {game.streamUrl
-              ? "Use the video controls to play, pause, adjust volume, or go fullscreen."
-              : "This player is ready for a browser-compatible video stream URL."}
+            {controlWsUrl
+              ? `SDP session: ${game.sessionId}`
+              : game.streamUrl
+                ? "Use the video controls to play, pause, adjust volume, or go fullscreen."
+                : "This player is ready for a browser-compatible video stream URL."}
           </p>
         </footer>
       </div>

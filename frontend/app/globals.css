@@ -257,6 +257,9 @@ a { text-decoration: none; }
 .stream-message span { color: #c0c5d2; font-size: 13px; line-height: 1.5; }
 .stream-message--connecting strong::before,
 .stream-message--buffering strong::before { display: inline-block; width: 8px; height: 8px; margin-right: 9px; border-radius: 50%; background: #eab75d; content: ""; animation: player-status-pulse 1.3s ease-in-out infinite; }
+.stream-progress { width: min(280px, 100%); height: 4px; overflow: hidden; border-radius: 999px; background: rgb(255 255 255 / 16%); }
+.stream-progress span { display: block; width: 34%; height: 100%; border-radius: inherit; background: #5de0a5; animation: stream-progress-travel 1.25s ease-in-out infinite; }
+@keyframes stream-progress-travel { from { transform: translateX(-110%); } to { transform: translateX(310%); } }
 .stream-message--error { border-color: rgb(255 107 115 / 35%); }
 .stream-placeholder { position: relative; z-index: 1; display: flex; max-width: 460px; flex-direction: column; align-items: center; padding: 24px; text-align: center; }
 .stream-game-icon { margin-bottom: 18px; border: 1px solid rgb(255 255 255 / 22%); border-radius: 18px; object-fit: cover; box-shadow: 0 12px 40px rgb(0 0 0 / 32%); }

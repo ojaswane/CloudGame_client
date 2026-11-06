@@ -14,5 +14,10 @@ export default async function GamePage({ params }: GamePageProps) {
     notFound();
   }
 
-  return <GamePlayer game={game} />;
+  return (
+    <GamePlayer
+      game={game}
+      controlWsUrl={process.env.NEXT_PUBLIC_CONTROL_WS_URL}
+    />
+  );
 }

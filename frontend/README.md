@@ -20,7 +20,16 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 ## Game stream player
 
-The game library's hold-to-play action opens a player at `/{gameId}/game`. To connect a browser-playable video stream, add the matching URL to `.env.local`:
+The game library's hold-to-play action opens a player at `/{gameId}/game`. To connect the game through the SDP/WebRTC control panel, add its WebSocket URL to `.env.local`:
+
+```env
+NEXT_PUBLIC_CONTROL_WS_URL=wss://your-control-host
+NEXT_PUBLIC_RDR2_SESSION_ID=rdr2
+NEXT_PUBLIC_SPIDERMAN_SESSION_ID=spiderman
+NEXT_PUBLIC_GTA5_SESSION_ID=gta5
+```
+
+The player connects to `/ws/sessions/{sessionId}` and sends an SDP offer plus ICE candidates. Session IDs default to each game's ID, so override them only when the control panel expects different IDs. When `NEXT_PUBLIC_CONTROL_WS_URL` is unset, the player falls back to a browser-playable video URL:
 
 ```env
 NEXT_PUBLIC_RDR2_STREAM_URL=https://your-stream-host/rdr2.mp4

@@ -71,6 +71,8 @@ export default function Home() {
 
       <section className="game-shelf" aria-label="Available games">
         <div className="game-list">
+
+          {/* TODO: add the rate limitor */}
           {games.map((game, index) => (
             <button
               className={`game-card ${index === selectedGameIndex ? "is-selected" : ""}`}
